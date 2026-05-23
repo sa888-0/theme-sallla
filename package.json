@@ -24,6 +24,9 @@
     "mmenu-light": "^3.0.9",
     "sweetalert2": "^11.26.17"
   },
+  "pnpm": {
+    "onlyBuiltDependencies": ["@parcel/watcher", "bufferutil", "es5-ext", "utf-8-validate"]
+  },
   "devDependencies": {
     "@babel/core": "^7.29.0",
     "@babel/plugin-transform-runtime": "^7.28.0",
