@@ -1,400 +1,346 @@
-/*
-  Block Title
-*/
-.s-block{
-  &__title{
-    @apply center-between mb-4 md:mb-8;
+/* ============================================================
+   Home Blocks — Approachable Luxury design system
+   ============================================================ */
 
-    .right-side{
+/* ── Global serif headings ────────────────────────────────── */
+h1, h2, h3 {
+  font-family: var(--font-serif), 'Noto Naskh Arabic', serif;
+}
+
+/* ── Block spacing ────────────────────────────────────────── */
+.s-block {
+  @apply mt-0;
+
+  &--full-bg {
+    + footer,
+    + .s-block--full-bg,
+    &:first-of-type { @apply mt-0; }
+  }
+}
+
+/* ============================================================
+   HERO SLIDER
+   ============================================================ */
+.lux-hero {
+  &__slide {
+    @apply relative w-full flex items-end justify-center overflow-hidden;
+    height: 95vh;
+    min-height: 560px;
+  }
+
+  &__bg {
+    @apply absolute inset-0 bg-cover bg-center;
+    transform: scale(1.05);
+    transition: transform 8s ease-out;
+  }
+
+  &__overlay {
+    @apply absolute inset-0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
+  }
+
+  &__content {
+    @apply relative z-10 text-center px-4 mb-24 max-w-3xl mx-auto flex flex-col items-center;
+  }
+
+  &__label {
+    @apply text-white/90 text-xs font-semibold tracking-[0.4em] uppercase mb-4 block;
+    font-family: 'Source Sans 3', sans-serif;
+  }
+
+  &__title {
+    @apply text-white font-bold leading-tight mb-6 drop-shadow-xl;
+    font-family: var(--font-serif), 'Noto Naskh Arabic', serif;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    letter-spacing: 0.04em;
+  }
+
+  &__desc {
+    @apply text-white/90 text-lg mb-10 tracking-widest max-w-lg;
+  }
+
+  &__actions {
+    @apply flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center;
+  }
+
+  &__line {
+    @apply absolute bottom-0 rtl:right-16 ltr:left-16 hidden md:block;
+    width: 1px;
+    height: 8rem;
+    background: rgba(255,255,255,0.25);
+  }
+}
+
+/* ── Luxury buttons ───────────────────────────────────────── */
+.lux-btn {
+  @apply inline-flex items-center justify-center font-semibold tracking-[0.2em] uppercase transition-all duration-500 px-10 py-4;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.75rem;
+  border-radius: var(--radius-btn);
+
+  &--white {
+    @apply bg-white text-primary hover:bg-primary hover:text-white;
+  }
+
+  &--black {
+    @apply bg-primary text-white;
+    &:hover { background-color: #1a1a1a; }
+  }
+
+  &--ghost {
+    @apply border border-white/40 text-white backdrop-blur-sm hover:bg-white/10;
+  }
+
+  &--outline {
+    @apply border border-primary text-primary hover:bg-primary hover:text-white;
+  }
+}
+
+/* ── Swiper adjustments for hero ──────────────────────────── */
+.s-block--hero-slider {
+  .swiper-slide {
+    @apply relative bg-gray-900;
+    height: 95vh;
+    min-height: 560px;
+  }
+}
+
+/* ============================================================
+   TRUST BAR
+   ============================================================ */
+.lux-trust-bar {
+  @apply bg-white py-5 border-b overflow-hidden flex items-center;
+  border-color: var(--lux-border);
+
+  &__track {
+    @apply flex items-center gap-16;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(26, 28, 28, 0.5);
+  }
+
+  &__item {
+    @apply flex items-center gap-3 whitespace-nowrap;
+  }
+
+  &__dot {
+    @apply text-primary;
+    font-size: 0.5rem;
+  }
+}
+
+/* ============================================================
+   CATEGORY BANNERS
+   ============================================================ */
+.lux-categories {
+  @apply py-20 bg-[#f9f9f9];
+
+  &__inner {
+    @apply px-4 md:px-16;
+  }
+
+  &__grid {
+    @apply grid gap-6;
+
+    &--1 { @apply grid-cols-1; }
+    &--2 { @apply grid-cols-1 md:grid-cols-2 h-auto md:h-[680px]; }
+    &--3 { @apply grid-cols-1 md:grid-cols-3 h-auto md:h-[560px]; }
+  }
+}
+
+.lux-cat-card {
+  @apply relative overflow-hidden cursor-pointer block;
+  border-radius: var(--radius-card);
+  aspect-ratio: 4/5;
+
+  @screen md {
+    aspect-ratio: unset;
+  }
+
+  &__img-wrap {
+    @apply absolute inset-0 overflow-hidden;
+    border-radius: var(--radius-card);
+  }
+
+  &__img {
+    @apply w-full h-full object-cover transition-transform duration-700;
+  }
+
+  &:hover &__img {
+    @apply scale-105;
+  }
+
+  &__overlay {
+    @apply absolute inset-0 flex flex-col items-center justify-center text-white;
+    background: rgba(0, 0, 0, 0.38);
+  }
+
+  &__title {
+    @apply text-3xl font-bold mb-4 tracking-widest;
+    font-family: var(--font-serif), 'Noto Naskh Arabic', serif;
+  }
+
+  &__line {
+    @apply mb-5 transition-all duration-500;
+    width: 3rem;
+    height: 1px;
+    background: rgba(255,255,255,0.5);
+  }
+
+  &:hover &__line {
+    width: 6rem;
+  }
+
+  &__cta {
+    @apply text-xs font-semibold tracking-[0.3em] uppercase;
+    font-family: 'Source Sans 3', sans-serif;
+  }
+
+  &__desc {
+    @apply text-sm text-white/80 mt-3 text-center px-6;
+  }
+}
+
+/* ============================================================
+   PRODUCT SECTIONS — Luxury card style
+   ============================================================ */
+.s-block {
+  &__title {
+    @apply flex items-baseline justify-between mb-8 md:mb-12;
+
+    .right-side {
       @apply rtl:pl-8 ltr:pr-8;
     }
 
-    h2{ 
-      @apply text-lg font-bold relative leading-[1.2];
+    h2 {
+      @apply text-2xl md:text-3xl font-bold relative leading-tight;
+      font-family: var(--font-serif), 'Noto Naskh Arabic', serif;
     }
 
-    p{
-      @apply text-sm opacity-60 mt-2 line-clamp-1 sm:line-clamp-2 rtl:md:pl-16 ltr:md:pr-16;
+    p {
+      @apply text-sm opacity-60 mt-2;
     }
 
-    &-nav{
-      @apply hidden sm:flex ltr:flex-row-reverse rtl:space-x-reverse space-x-2.5 rtl:mr-6 ltr:ml-6;
+    &-nav {
+      @apply hidden sm:flex rtl:space-x-reverse space-x-2.5 rtl:mr-6 ltr:ml-6;
     }
   }
 
-  &__display-all{
-    @apply inline-flex items-center gap-2 text-sm font-bold opacity-80 hover:opacity-100;
+  &__display-all {
+    @apply inline-flex items-center gap-2 text-sm font-semibold opacity-70 hover:opacity-100 transition-opacity tracking-widest;
+    font-family: 'Source Sans 3', sans-serif;
 
-    i{
-      @apply ltr:rotate-180 inline-block;
-    }
+    i { @apply rtl:rotate-180 inline-block; }
   }
 }
 
-/*
-  Main slider
-*/
-.s-block--hero-slider{
-  .swiper-slide{
-    @apply h-80 sm:h-96 lg:h-116 xl:h-132 relative bg-gray-800;
+/* Product card wrapper */
+custom-salla-product-card,
+salla-product-card {
+  @apply block;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  transition: box-shadow 0.3s;
 
-    .swiper-lazy{
-      &:after{
-        @apply content-[''] absolute transition top-0 bg-black/60 w-full h-full;
-      }
-    }
-
-	.overlay-bg{
-		&:after{
-		  @apply content-[''] absolute top-0 bg-black/60 w-full h-full;
-		}
-	  }
+  &:hover {
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
   }
 }
 
-/* Banner Block */
-.banner {
-  @media screen and (min-width: 768px) {
-    &:hover {
-      .banner__title {
-        animation: toTopFromBottom 0.9s;
-      }
-
-      .banner__description {
-        animation: delayKeyframe 0.3s, toTopFromBottom 0.9s 0.3s;
-      }
-    }
-  }
-
-  &--fixed{
-    img{
-      @apply w-full object-cover rounded-md border-none block bg-gray-100;
-    }
-  }
-}
-
-/* Square Banner Block */
-.banner-entry{
-  @apply h-[200px] bg-gray-100 text-white text-center p-3 xs:p-4 rounded-md overflow-hidden relative bg-cover bg-no-repeat bg-center;
-
-  article{
-    @apply flex flex-col items-center justify-center h-full p-2.5 
-  }
-  
-  &.square-photos h3{
-    @apply h-full px-3;
-  }
-
-  h3{
-    @apply flex flex-col justify-center xs:px-1;
-   
-    &.text-with-border{
-      @apply xs:border border-dashed border-gray-200 rounded-md;
-
-      span{
-        @apply line-clamp-2;
-      }
-    }
-  }
-
-  p{
-    @apply line-clamp-2 opacity-80;
-  }
-
-  h3,p{
-    @apply lg:opacity-0  transition-all duration-300 relative z-1 lg:translate-y-6;
-  }
-  
-  &:hover{
-    h3{
-      @apply opacity-100 translate-y-0;
-    }
-
-    p{
-      @apply opacity-80 translate-y-0;
-    }
-  }
-
-  .two-row &{
-    &:first-child{
-      @apply md:h-full sm:col-span-1 sm:row-span-2 p-5;
-
-      > a{
-        @apply opacity-100;
-      }
-
-      h3{
-        @apply text-2xl leading-12;
-      }
-    }
-  }
-}
-
-.has-overlay{ 
-  &:after{
-    @apply content-[''] h-full w-full bg-black/60 absolute top-0 left-0 transition-colors duration-300;
-  }
-
-  &.with-hover{
-    &:after{
-      transition: opacity .3s;
-      opacity: 0;
-    }
-    &:hover{
-      &:after{
-      opacity: 1;
-    }
-    }
-  }
-
-  &:hover:after{
-    @apply bg-black/70
-  }
-}
-
-
-/* Full banner block */
-.full-banner-entry {
-  @apply row-span-2 h-80 md:h-96 lg:h-116 xl:h-132 bg-stone-200 transition-opacity hover:opacity-95 bg-center bg-cover text-white text-center p-5 overflow-hidden relative bg-fixed;
-
-  background-attachment: initial;
-
-  &::after,
-  &::before {
-    height: 100%;
-    width: 100%;
-    top: 0;
-    right: -93%;
-    content: "";
-    background: var(--color-primary);
-    position: absolute;
-    transition: all 0.3s ease-in-out;
-    transform: rotate(220deg) translateY(-50%) translateX(33%);
-    opacity: 0.25;
-  }
-
-  &::before {
-    background: #fff;
-    right: auto;
-    transform: rotate(220deg) translateY(-40%) translateX(0);
-
-    [dir="ltr"] & {
-      left: -52%;
-    }
-  }
-
-  @media (max-width: 1330px) {
-    &::after {
-      top: -50%;
-    }
-  }
-
-  @media (max-width: 480px) {
-    &::before {
-      top: 20%;
-    }
-
-    &::after {
-      top: -80%;
-    }
-  }
-}
-
-/*
-  Tabs Block
-*/
-.tabs-wrapper{
-  .tabs__item{
-    @apply hidden transition-all duration-300;
-
-    &.is-active{
-      @apply block;
-    }
-  }
-}
-
-.s-block--tabs-produtcs{
-  .tabs{
-    @apply text-center pb-6 sm:pb-10 px-5 -mx-2.5 sm:-mx-5 lg:mx-0 rtl:space-x-reverse space-x-1 md:space-x-4 whitespace-nowrap overflow-x-auto;
-  }
-
-  .tab-trigger{
-    @apply text-gray-800;
-    &.is-active button{
-      @apply text-primary-reverse bg-primary-dark border-primary-dark;
-    }
-  }
-}
-
-.s-block--special-products{
-  .tabs{
-    @apply mb-4 sm:mb-0 rtl:space-x-reverse space-x-2 md:space-x-8 whitespace-nowrap overflow-x-auto;
-
-    &__item{
-      @apply flex-1 gap-2.5 sm:gap-8;
-
-      &.is-active{
-        display: grid;
-      }
-    }
-  }
-
-  .tab-trigger{
-    @apply text-gray-800 font-bold leading-7;
-
-    &.is-active button{
-      @apply text-primary-dark border-primary-dark;
-    }
-  }
-}
-
-.s-block--tabs-produtcs,
+/* Featured products layout */
 .s-block--special-products {
-  &:not(.tabs-initialized) {
-    .tabs-wrapper > div:not(:first-child) {
-      display: none;
+  @apply py-16 md:py-24;
+
+  .tabs {
+    @apply mb-4 sm:mb-0 rtl:space-x-reverse space-x-4 whitespace-nowrap overflow-x-auto;
+
+    &__item {
+      @apply flex-1 gap-4;
+      &.is-active { display: grid; }
     }
+  }
+
+  .tab-trigger {
+    @apply font-semibold text-gray-500 tracking-wider;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+
+    &.is-active button { @apply text-primary border-primary; }
   }
 }
 
-/* feature products*/
-.s-block--features-products {
-  &.two-cols {
-    .inner {
-      display: grid;
-      @apply lg:grid-cols-2 gap-5;
-    }
+.tabs-wrapper {
+  .tabs__item {
+    @apply hidden transition-all duration-300;
+    &.is-active { @apply block; }
   }
 }
 
-/* slider with bg block */
-.s-block--slider-with-bg{
-  @apply bg-gray-100 pb-8 sm:pb-16 mt-8 sm:mt-16 first-of-type:mt-0;
+.s-block--special-products,
+.s-block--tabs-produtcs {
+  &:not(.tabs-initialized) .tabs-wrapper > div:not(:first-child) { display: none; }
+}
 
-  .slider-bg{
-    @apply h-96 sm:h-116 transition-opacity bg-center bg-cover text-white relative;
+/* Latest products */
+.s-block--latest-products {
+  @apply py-16 md:py-24;
+}
 
-    &:before{
-      content: '';
-      @apply h-full w-full bg-black opacity-60 absolute top-0 left-0;
-    }
+/* ============================================================
+   BANNER / EDITORIAL SECTIONS
+   ============================================================ */
+.banner-entry {
+  @apply relative overflow-hidden text-white text-center p-3 bg-cover bg-no-repeat bg-center;
+  border-radius: var(--radius-card);
+  min-height: 200px;
+
+  article { @apply flex flex-col items-center justify-center h-full p-2.5; }
+
+  h3 {
+    @apply flex flex-col justify-center font-bold;
+    font-family: var(--font-serif), serif;
   }
 
-  .s-slider-block{
-    &__title-right{
-      @apply hidden;
+  &.has-overlay::after {
+    @apply content-[''] absolute inset-0 transition-colors duration-300;
+    background: rgba(0,0,0,0.38);
+  }
+
+  &:hover::after { background: rgba(0,0,0,0.5); }
+}
+
+/* Legacy blocks kept for compat */
+.s-block--features {
+  &__item {
+    @apply cursor-pointer bg-white transition-shadow duration-500 hover:shadow-light rounded-2xl flex-grow flex flex-col items-center px-6 py-8 text-center;
+
+    .feature-icon {
+      @apply mb-4 bg-primary w-14 h-14 rounded-full flex items-center justify-center;
+      i { @apply text-white text-2xl; }
     }
 
-    &__title-left{
-      @apply w-full flex justify-between;
-    }
-
-    &__display-all{
-      @apply block btn btn--outline light btn--rounded-full;
-      @apply grow-0 bg-transparent text-white #{!important};
-    }
+    h2 { @apply font-semibold text-sm text-primary mb-1; }
+    p  { @apply text-sm text-gray-500; }
   }
 }
 
-/*
-  Main Links Block
-*/
+/* Category links slider */
 .slide--cat-entry {
-  @apply bg-white rounded-md h-36 p-3 text-center flex flex-col items-center justify-center transition duration-500 hover:shadow-default hover:text-gray-500 border border-gray-100;
-
-  i {
-    @apply inline-block text-primary text-icon-lg mb-4;
-  }
-
-  h2 {
-    @apply font-bold text-sm;
-  }
+  @apply bg-white rounded-2xl p-3 text-center flex flex-col items-center justify-center transition duration-500 hover:shadow-light border border-black/5;
+  h2 { @apply font-semibold text-sm; }
 }
 
-/*
-  offers slider
-*/
-.slide--offer-entry {
-  @apply bg-white rounded-md h-36 text-center flex flex-col items-center justify-between text-gray-600 transition duration-500 hover:shadow-default border border-gray-200;
+.s-block--slider-with-bg {
+  @apply bg-[#f3f3f3] pb-8 sm:pb-16;
 }
 
-
-.s-block {
-  @apply mt-8 sm:mt-16;
-
-  &--full-bg{
-    + footer,
-    + .s-block--full-bg,
-    &:first-of-type{
-      @apply mt-0;
-    }
-
-    + .merge-with-top-component{
-      @apply -mt-28 md:-mt-32 z-1;
-
-      .s-slider-block__title {
-        color: #fff !important;
-        @apply text-center sm:text-start sm:mb-4;
-      }
-    }
-
-    + .merged-has-no-title{
-      @apply -mt-16 md:-mt-[74px];
-
-      .s-slider-block__title {
-        @apply sm:mb-0;
-      }
-    }
-  }
-
-  &--categories{
-    @apply relative overflow-hidden;
-
-    &__title{
-      @apply font-bold text-base sm:text-lg sm:mb-4 relative z-1 min-h-[28px];
-    }
-  }
-
-  &--features{
-    &__item{
-      @apply cursor-pointer bg-white transition-shadow duration-500 hover:shadow-default rounded-md flex-grow flex flex-col items-center px-4 py-8 md:px-8 text-center;
-
-      &:first-child{
-        @apply col-span-2 md:col-span-1;
-      }
-
-      .feature-icon{
-        @apply mb-3 bg-primary w-16 h-16 rounded-full flex items-center justify-center overflow-hidden;
-
-        i{
-          @apply text-primary-reverse text-3xl;
-        }
-      }
-
-      h2{
-        @apply font-bold text-sm text-gray-800 mb-1;
-      }
-
-      p{
-        @apply text-sm text-gray-500;
-      }
-
-      &:hover {
-        .feature-icon i {
-          animation: toRightFromLeft 0.3s forwards;
-        }
-      }
-    }
-  }
-}
-
-// repeated block with narrow top spacing
+/* Repeated block spacing */
 .s-block--features + .s-block--features,
 .s-block--fixed-banner + .s-block--fixed-banner,
-.s-block--banners + .s-block--banners {
-  margin-top: 2em;
-}
+.s-block--banners + .s-block--banners { margin-top: 2em; }
 
-.s-block--tabs-produtcs + .s-block--tabs-produtcs {
-  padding-top: 2em;
-}
+.s-block--tabs-produtcs + .s-block--tabs-produtcs { padding-top: 2em; }

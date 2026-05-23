@@ -9,16 +9,31 @@
 | component.banners[].description | ?string  |                                                                              |
 | position                        | int      | Sorting number start from zero                                               |
 #}
-
-<section class="s-block s-block--banners container">
-    <div class="grid {{ component.banners|length <= 3 ? 'md:grid-cols-' ~ component.banners|length : 'md:grid-cols-3 two-row' }} grid-flow-row gap-3 sm:gap-8">
-        {% for index, banner in component.banners %}
-            <a  href="{{banner.url}}" aria-label="{{ (banner.title ? banner.title : 'square-banner-' ~ index) | e('html_attr') }}" class="banner-entry lazy {{banner.title ? 'has-overlay' : ''}} {{ component.banners|length <= 3 ? "h-lg-banner" : "h-banner" }}" data-bg="{{ banner.image }}">
-                <article class="banner-entry__text text-with-border">
-                    <h3 class="banner__title font-bold mb-1 leading-6">{{banner.title}}</h3>
-                    <p class="banner__description">{{banner.description}}</p>
-                </article>
-            </a>
-        {% endfor %}
+<section class="lux-categories s-block s-block--full-bg">
+  <div class="container lux-categories__inner">
+    {% set cols = component.banners|length <= 2 ? component.banners|length : 3 %}
+    <div class="lux-categories__grid lux-categories__grid--{{ cols }}">
+      {% for banner in component.banners %}
+        <a href="{{ banner.url }}" class="lux-cat-card group">
+          <div class="lux-cat-card__img-wrap">
+            <img
+              src="{{ banner.image }}"
+              alt="{{ banner.title }}"
+              loading="lazy"
+              class="lux-cat-card__img">
+          </div>
+          <div class="lux-cat-card__overlay">
+            {% if banner.title %}
+              <h3 class="lux-cat-card__title">{{ banner.title }}</h3>
+              <div class="lux-cat-card__line"></div>
+              <span class="lux-cat-card__cta">SHOP COLLECTION</span>
+            {% endif %}
+            {% if banner.description %}
+              <p class="lux-cat-card__desc">{{ banner.description }}</p>
+            {% endif %}
+          </div>
+        </a>
+      {% endfor %}
     </div>
+  </div>
 </section>

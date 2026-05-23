@@ -6,24 +6,71 @@ $main-text-color: var(--main-text-color);
 
 :root {
   --infinte-color: #c9c9c9;
-  --main-text-color: #231f1e;
-  --main-text-color-dark: #2b2d34;
+  --main-text-color: #1a1c1c;
+  --main-text-color-dark: #0d0d0d;
 
-  /* current */
-  --color-primary: #5cd5c4;
-  --color-primary: #414042;
-  --color-primary-d: #272628;
-  --color-primary-l: #676668;
-  --color-primary-reverse: #ff6767;
-  --color-text: #7c8082;
-  --bg-gray: #c6c7ce1a;
-  --color-grey: #f5f7f9;
+  /* Approachable Luxury — Monochrome palette */
+  --color-primary: #000000;
+  --color-primary-d: #0d0d0d;
+  --color-primary-l: #2f3131;
+  --color-primary-reverse: #ffffff;
+  --color-text: #444748;
+
+  /* Surface system */
+  --lux-bg: #f9f9f9;
+  --lux-surface: #eeeeee;
+  --lux-surface-low: #f3f3f3;
+  --lux-surface-high: #e8e8e8;
+  --lux-muted: #8C8C8C;
+  --lux-border: rgba(0, 0, 0, 0.1);
+  --lux-border-subtle: #e5e2e1;
+
+  /* Legacy compat */
+  --bg-gray: #f3f3f3;
+  --color-grey: #f9f9f9;
   --color-light-grey: #eeeeee;
-  /* font-size */
-  --font-sm: 0.8685714286rem;
-  /* font-family: ; */
-  --font-main: "DINNextLTArabic";
+
+  /* Typography */
+  --font-sm: 0.875rem;
+  --font-main: "Noto Naskh Arabic", "DINNextLTArabic", sans-serif;
+  --font-serif: "Noto Serif", serif;
+
+  /* Luxury shape radius */
+  --radius-card: 1.5rem;
+  --radius-btn: 1rem;
+  --radius-chip: 0.5rem;
 
   /* plugins */
   --mm-ocd-width: calc(100% - 51px);
 }
+
+/* Luxury utility classes */
+.lux-shadow-editorial {
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+}
+
+.lux-border {
+  border: 1px solid var(--lux-border);
+}
+
+.lux-serif {
+  font-family: var(--font-serif);
+}
+
+.marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.marquee-content {
+  display: inline-block;
+  animation: luxMarquee 22s linear infinite;
+}
+
+@keyframes luxMarquee {
+  0%   { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
