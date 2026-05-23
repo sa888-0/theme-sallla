@@ -14,7 +14,7 @@
     {% set cols = component.banners|length <= 2 ? component.banners|length : 3 %}
     <div class="lux-categories__grid lux-categories__grid--{{ cols }}">
       {% for banner in component.banners %}
-        <a href="{{ banner.url }}" class="lux-cat-card group">
+        <a href="{{ banner.url }}" class="lux-cat-card lux-tilt lux-reveal lux-reveal--d{{ loop.index }} group">
           <div class="lux-cat-card__img-wrap">
             <img
               src="{{ banner.image }}"

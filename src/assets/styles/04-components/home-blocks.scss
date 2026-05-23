@@ -338,6 +338,124 @@ salla-product-card {
   @apply bg-[#f3f3f3] pb-8 sm:pb-16;
 }
 
+/* ============================================================
+   LUXURY INTERACTIVE EFFECTS
+   ============================================================ */
+
+/* ── Scroll Progress Bar ───────────────────────────────────── */
+#lux-progress {
+  position: fixed; top: 0; right: 0; height: 2px;
+  background: #000; z-index: 9999; width: 0%;
+  transition: width 0.08s linear;
+  pointer-events: none;
+}
+
+/* ── Custom Cursor ─────────────────────────────────────────── */
+@media (pointer: fine) {
+  body * { cursor: none !important; }
+}
+.lux-cursor-dot {
+  position: fixed; width: 6px; height: 6px; background: #000;
+  border-radius: 50%; pointer-events: none; z-index: 99999;
+  transform: translate(-50%, -50%);
+}
+.lux-cursor-ring {
+  position: fixed; width: 38px; height: 38px;
+  border: 1px solid rgba(0,0,0,0.45); border-radius: 50%;
+  pointer-events: none; z-index: 99998;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease,
+              background 0.3s ease, border-color 0.3s ease;
+
+  &.hovering {
+    width: 64px; height: 64px;
+    background: rgba(0,0,0,0.05);
+    border-color: rgba(0,0,0,0.2);
+  }
+}
+
+/* ── Page Entrance Curtain ─────────────────────────────────── */
+#lux-curtain {
+  position: fixed; inset: 0; background: #0d0d0d; z-index: 99990;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 1.2rem;
+  transition: opacity 0.9s cubic-bezier(0.77,0,0.175,1) 0.4s,
+              transform 0.9s cubic-bezier(0.77,0,0.175,1) 0.4s;
+
+  &.open { opacity: 0; transform: translateY(-100%); pointer-events: none; }
+
+  &__line {
+    height: 1px; background: rgba(255,255,255,0.3);
+    animation: luxLineGrow 0.9s ease 0.2s both;
+  }
+  &__brand {
+    font-family: var(--font-serif), 'Noto Naskh Arabic', serif;
+    font-size: clamp(2rem, 7vw, 5rem); font-weight: 700;
+    color: #fff; letter-spacing: 0.1em;
+    animation: luxFadeUp 0.7s ease 0.1s both;
+  }
+  &__sub {
+    font-family: 'Source Sans 3', sans-serif; font-size: 0.6rem;
+    letter-spacing: 0.45em; color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    animation: luxFadeUp 0.7s ease 0.3s both;
+  }
+}
+
+@keyframes luxFadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes luxLineGrow {
+  from { width: 0; }
+  to   { width: 70px; }
+}
+
+/* ── Scroll Reveal ─────────────────────────────────────────── */
+.lux-reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+
+  &.visible { opacity: 1; transform: translateY(0); }
+  &--d1 { transition-delay: 0.1s; }
+  &--d2 { transition-delay: 0.22s; }
+  &--d3 { transition-delay: 0.34s; }
+}
+
+/* ── Arabic Decorative Watermark ───────────────────────────── */
+.lux-watermark {
+  position: absolute; font-family: var(--font-serif), serif; font-weight: 700;
+  font-size: clamp(240px, 45vw, 560px); line-height: 0.8;
+  color: rgba(0,0,0,0.028); pointer-events: none;
+  -webkit-user-select: none; user-select: none;
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  z-index: 0;
+}
+
+/* ── 3D Card Tilt ──────────────────────────────────────────── */
+.lux-tilt {
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease, box-shadow 0.6s ease;
+
+  &:hover {
+    box-shadow: 0 32px 64px -16px rgba(0,0,0,0.13);
+  }
+}
+
+/* ── Vertical editorial side text ──────────────────────────── */
+.lux-side-text {
+  position: fixed; left: 1.5rem; bottom: 3rem;
+  writing-mode: vertical-rl;
+  font-family: 'Source Sans 3', sans-serif; font-size: 0.55rem;
+  letter-spacing: 0.3em; color: rgba(0,0,0,0.28); text-transform: uppercase;
+  z-index: 40; pointer-events: none;
+  -webkit-user-select: none; user-select: none;
+  display: none;
+
+  @screen xl { display: block; }
+}
+
 /* Repeated block spacing */
 .s-block--features + .s-block--features,
 .s-block--fixed-banner + .s-block--fixed-banner,

@@ -108,6 +108,18 @@
        target="_blank">To enable JavaScript on webpage</a>.
 </noscript>
 <div class="app-inner flex flex-col min-h-full">
+    {# ── Luxury interactive elements ── #}
+    <div id="lux-progress" aria-hidden="true"></div>
+    <div class="lux-cursor-dot" id="luxDot" aria-hidden="true"></div>
+    <div class="lux-cursor-ring" id="luxRing" aria-hidden="true"></div>
+    <div id="lux-curtain" aria-hidden="true">
+      <div class="lux-curtain__line"></div>
+      <span class="lux-curtain__brand">{{ store.name }}</span>
+      <span class="lux-curtain__sub">Luxury Abaya House</span>
+      <div class="lux-curtain__line"></div>
+    </div>
+    <span class="lux-side-text" aria-hidden="true">{{ store.name }} — Collection 2024</span>
+
     {% hook 'body:start' %}
     {% component 'header.header' %}
     <main id="main-content" role="main">
