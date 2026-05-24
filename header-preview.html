@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Header Preview</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Serif&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-primary: #000000;
+      --font-serif: "Noto Serif", serif;
+      --font-main: "Noto Naskh Arabic", sans-serif;
+      --lux-border: rgba(0,0,0,0.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-main); background: #f5f5f5; }
+
+    /* ── Main nav ── */
+    .lux-header { position: relative; z-index: 50; }
+
+    .lux-nav {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      z-index: 50;
+      height: 72px;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      transition: box-shadow 0.4s ease;
+    }
+
+    .lux-nav.scrolled {
+      box-shadow: 0 4px 32px -8px rgba(0,0,0,0.10);
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .lux-nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      height: 100%;
+    }
+
+    /* ── Logo centered ── */
+    .lux-nav__logo {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+    }
+
+    .lux-logo-link {
+      display: flex;
+      align-items: center;
+    }
+
+    .lux-logo-link img {
+      height: 40px;
+      width: auto;
+      object-fit: contain;
+      max-width: 160px;
+    }
+
+    .logo-placeholder {
+      height: 40px;
+      display: flex;
+      align-items: center;
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: #000;
+      white-space: nowrap;
+    }
+
+    /* ── Side groups ── */
+    .lux-nav__side {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    /* ── Icon buttons ── */
+    .lux-icon-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 9999px;
+      color: #000;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      transition: background 0.3s;
+      font-size: 1.25rem;
+    }
+    .lux-icon-btn:hover { background: rgba(0,0,0,0.05); }
+
+    .lux-hamburger {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      color: #000;
+      text-decoration: none;
+      font-size: 1.25rem;
+    }
+
+    /* ── Search bar (desktop) ── */
+    .lux-search-wrap {
+      display: flex;
+      align-items: center;
+    }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(0,0,0,0.05);
+      border-radius: 9999px;
+      padding: 0 0.75rem;
+      height: 36px;
+      width: 180px;
+      font-size: 0.85rem;
+      color: #888;
+    }
+
+    /* ── Cart ── */
+    .cart-btn {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      min-width: 40px;
+      min-height: 40px;
+      font-size: 1.25rem;
+      color: #000;
+    }
+
+    .cart-badge {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      background: #000;
+      color: #fff;
+      font-size: 10px;
+      width: 16px;
+      height: 16px;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    .cart-total {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #000;
+    }
+
+    /* ── User ── */
+    .user-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 9999px;
+      background: #eee;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: #555;
+    }
+
+    /* ── Category nav ── */
+    .lux-cat-nav {
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      background: rgba(255,255,255,0.97);
+    }
+
+    .lux-cat-nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      padding: 0.75rem 0;
+    }
+
+    .nav-link {
+      position: relative;
+      font-family: var(--font-serif), 'Noto Naskh Arabic', serif;
+      font-size: 0.88rem;
+      color: rgba(0,0,0,0.65);
+      letter-spacing: 0.03em;
+      padding: 0.3rem 0;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0; right: 0;
+      height: 1px;
+      background: #000;
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.38s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+
+    .nav-link:hover { color: #000; }
+    .nav-link:hover::after { transform: scaleX(1); }
+    .nav-link.is-active { color: #000; }
+    .nav-link.is-active::after { transform: scaleX(1); }
+
+    /* ── Page content placeholder ── */
+    .page-body {
+      padding: 3rem 1.5rem;
+      text-align: center;
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .desktop-only { display: none !important; }
+    }
+    @media (min-width: 1025px) {
+      .mobile-only { display: none !important; }
+      .lux-cat-nav { display: block; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="store-header lux-header">
+
+  <!-- Main nav -->
+  <div id="mainnav" class="lux-nav">
+    <div class="container lux-nav__inner">
+
+      <!-- RIGHT side: Hamburger + Search -->
+      <div class="lux-nav__side">
+        <!-- Hamburger (mobile only) -->
+        <a class="lux-hamburger mobile-only" href="#" aria-label="فتح القائمة">
+          ☰
+        </a>
+        <!-- Search (desktop only) -->
+        <div class="lux-search-wrap desktop-only">
+          <div class="search-bar">
+            <span>🔍</span>
+            <span>ابحث في المتجر...</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CENTER: Logo -->
+      <div class="lux-nav__logo">
+        <a href="#" class="lux-logo-link">
+          <div class="logo-placeholder">اسم المتجر</div>
+        </a>
+      </div>
+
+      <!-- LEFT side: Search icon (mobile) + User + Cart -->
+      <div class="lux-nav__side">
+        <!-- Search icon (mobile only) -->
+        <button class="lux-icon-btn mobile-only">🔍</button>
+        <!-- User -->
+        <button class="user-btn">👤</button>
+        <!-- Cart -->
+        <button class="cart-btn">
+          🛍
+          <span class="cart-badge">3</span>
+          <span class="cart-total desktop-only">١٢٠ ر.س</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Desktop category nav -->
+  <nav class="lux-cat-nav desktop-only">
+    <div class="container lux-cat-nav__inner">
+      <a href="#" class="nav-link is-active">الرئيسية</a>
+      <a href="#" class="nav-link">المنتجات</a>
+      <a href="#" class="nav-link">العروض</a>
+      <a href="#" class="nav-link">التصنيفات</a>
+      <a href="#" class="nav-link">تواصل معنا</a>
+    </div>
+  </nav>
+
+</header>
+
+<div class="page-body">
+  <p>محتوى الصفحة يظهر هنا</p>
+</div>
+
+<script>
+  // Add scrolled class on scroll
+  const nav = document.querySelector('.lux-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 10);
+  });
+</script>
+
+</body>
+</html>

@@ -35,9 +35,89 @@ class App extends AppHelpers {
 
     salla.comment.event.onAdded(() => window.location.reload());
 
+    this.initLuxuryEffects();
+
     this.status = 'ready';
     document.dispatchEvent(new CustomEvent('theme::ready'));
     this.log('Theme Loaded 🎉');
+  }
+
+  initLuxuryEffects() {
+    // ── Page entrance curtain ──────────────────────────────────
+    const curtain = document.getElementById('lux-curtain');
+    if (curtain) {
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          curtain.classList.add('open');
+          setTimeout(() => curtain.remove(), 1400);
+        }, 950);
+      });
+    }
+
+    // ── Scroll progress bar ────────────────────────────────────
+    const bar = document.getElementById('lux-progress');
+    if (bar) {
+      window.addEventListener('scroll', () => {
+        const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+        bar.style.width = pct + '%';
+      }, { passive: true });
+    }
+
+    // ── Nav scroll shadow ──────────────────────────────────────
+    const nav = document.getElementById('mainnav');
+    if (nav) {
+      window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 30);
+      }, { passive: true });
+    }
+
+    // ── Custom cursor (desktop only) ───────────────────────────
+    const dot  = document.getElementById('luxDot');
+    const ring = document.getElementById('luxRing');
+    if (dot && ring && window.matchMedia('(pointer: fine)').matches) {
+      let mx = 0, my = 0, rx = 0, ry = 0;
+      document.addEventListener('mousemove', e => {
+        mx = e.clientX; my = e.clientY;
+        dot.style.left = mx + 'px';
+        dot.style.top  = my + 'px';
+      });
+      (function animRing() {
+        rx += (mx - rx) * 0.12;
+        ry += (my - ry) * 0.12;
+        ring.style.left = rx + 'px';
+        ring.style.top  = ry + 'px';
+        requestAnimationFrame(animRing);
+      })();
+      document.querySelectorAll('a, button, [class*="cursor-pointer"]').forEach(el => {
+        el.addEventListener('mouseenter', () => ring.classList.add('hovering'));
+        el.addEventListener('mouseleave', () => ring.classList.remove('hovering'));
+      });
+    }
+
+    // ── Scroll reveal ──────────────────────────────────────────
+    const revealObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          revealObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.lux-reveal').forEach(el => revealObs.observe(el));
+
+    // ── 3D card tilt ───────────────────────────────────────────
+    document.querySelectorAll('.lux-tilt').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left - r.width  / 2) / (r.width  / 2);
+        const y = (e.clientY - r.top  - r.height / 2) / (r.height / 2);
+        card.style.transform = `perspective(900px) rotateY(${x * 5}deg) rotateX(${-y * 5}deg) scale(1.02)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(900px) rotateY(0deg) rotateX(0deg) scale(1)';
+        setTimeout(() => { card.style.transform = ''; }, 600);
+      });
+    });
   }
 
   log(message) {
