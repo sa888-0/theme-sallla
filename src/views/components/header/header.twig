@@ -31,11 +31,13 @@
       <div class="lux-nav__logo">
         <a href="{{ store.url }}" class="lux-logo-link">
           <img fetchpriority="high" loading="eager" width="175" height="40"
-               src="{{ store.logo|cdn(175) }}" alt="{{ store.name }}">
+               src="{{ store.logo|cdn(175) }}" alt=""
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <span class="lux-logo-text" style="display:none">{{ store.name }}</span>
           {% if is_page('index') %}
-            <h1 class="sr-only">{{ store.name }}</h1>
+            <h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">{{ store.name }}</h1>
           {% else %}
-            <h2 class="sr-only">{{ store.name }}</h2>
+            <h2 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">{{ store.name }}</h2>
           {% endif %}
         </a>
       </div>
